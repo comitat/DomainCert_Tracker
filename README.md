@@ -1,6 +1,6 @@
-# UrlCertifyScanner
+# DomainCert Tracker
 
-UrlCertifyScanner is a URL SSL certificate monitoring and verification tool that automatically extracts information about certificate expiration dates and status, keeping your websites secure.
+DomainCert Tracker is a URL SSL certificate monitoring and verification tool that automatically extracts information about certificate expiration dates and status, keeping your websites secure.
 
 ## Features  
 - Add URLs to monitor.
@@ -20,7 +20,7 @@ UrlCertifyScanner is a URL SSL certificate monitoring and verification tool that
   
 ## Metrics
   
-### UrlCertifyScanner exposes two Prometheus metrics:  
+### DomainCert Tracker exposes two Prometheus metrics:  
 - certificate_validity_days: The number of days left until the certificate expires for each monitored URL.  
 - invalid_certificates: The counter for the number of invalid certificates detected.  
 Metrics are available at the specified METRICS_PORT (default: 8899).  
@@ -42,6 +42,6 @@ You can configure the following environment variables:
 
 The API documentation is available via Swagger UI. You can access it at the following URL:
 
-[Swagger API Docs](http://127.0.0.1:5000/apidocs)
+Swagger API Docs - http://127.0.0.1:5000/apidocs
 
 This provides an interactive interface to explore and test the available endpoints.
