@@ -1,0 +1,7 @@
+Flask
+prometheus-client
+psutil
+python-dotenv
+python-snappy
+requests
+flasgger

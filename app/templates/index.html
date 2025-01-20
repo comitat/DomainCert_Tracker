@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Monitoring</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <main>
+        <h1>Certificate Monitoring</h1>
+
+        <form id="add-url-form">
+            <input type="text" id="url" placeholder="Enter URL" required>
+            <button type="submit">Add URL</button>
+        </form>
+
+        <input type="text" id="url-search" placeholder="Search URL">
+
+
+        <select id="status-filter">
+            <option value="all">All</option>
+            <option value="Valid">Valid</option>
+            <option value="Expired">Expired</option>
+            <option value="Expiring">Expiring</option>
+        </select>
+
+        <button id="delete-all-urls-btn">Delete All URLs</button>
+
+        <ul id="url-list"></ul>
+
+        <div id="pagination">
+            <button id="prev-page-btn">Previous</button>
+            <span id="page-number">Page 1</span>
+            <button id="next-page-btn">Next</button>
+        </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
