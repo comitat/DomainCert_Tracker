@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Certificate Monitoring</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
@@ -33,6 +34,13 @@
             <button id="prev-page-btn">Previous</button>
             <span id="page-number">Page 1</span>
             <button id="next-page-btn">Next</button>
+        </div>
+
+        <div id="dns-whois-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <pre id="dns-whois-info"></pre>
+            </div>
         </div>
     </main>
 

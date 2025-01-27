@@ -100,6 +100,36 @@ h1 {
     border-bottom: none;
 }
 
+.dns-info-btn {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    margin-left: 5px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.dns-info-btn:hover {
+    background: linear-gradient(135deg, #2575fc, #6a11cb);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+.dns-info-btn:active {
+    background: linear-gradient(135deg, #1a5bbf, #4a0d9f);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transform: translateY(0);
+}
+
 .status {
     padding: 5px 10px;
     border-radius: 4px;
@@ -120,16 +150,32 @@ h1 {
 }
 
 .delete-btn {
-    padding: 5px 10px;
-    background-color: #dc3545;
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
     color: white;
     border: none;
-    border-radius: 4px;
+    padding: 8px 16px;
+    border-radius: 6px;
     cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    outline: none;
 }
 
 .delete-btn:hover {
-    background-color: #a71d2a;
+    background: linear-gradient(135deg, #ff4b2b, #ff416c);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+.delete-btn:active {
+    background: linear-gradient(135deg, #e03a1a, #d52222);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transform: translateY(0);
 }
 
 .alert {

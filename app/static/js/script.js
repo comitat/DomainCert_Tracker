@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const daysUntilExpiration = (valid_to) => {
         const validToDate = new Date(valid_to);
         return Math.ceil((validToDate - new Date()) / (1000 * 60 * 60 * 24));
-    }
+    };
 
     const showAlert = (message, type = 'error') => {
         const alertBox = document.createElement('div');
@@ -31,19 +31,19 @@ document.addEventListener('DOMContentLoaded', () => {
             alertBox.classList.add('fade-out');
             alertBox.addEventListener('animationend', () => alertBox.remove());
         }, 2000);
-    }
+    };
 
     const filterUrls = () => {
         const searchQuery = urlSearchInput.value.toLowerCase();
         const statusFilter = statusFilterSelect.value;
 
-        const filteredUrls = urls.filter(({ domain, status }) => 
-            domain.toLowerCase().includes(searchQuery) && 
+        const filteredUrls = urls.filter(({ domain, status }) =>
+            domain.toLowerCase().includes(searchQuery) &&
             (statusFilter === 'all' || status === statusFilter)
         );
 
         updateUrlList(filteredUrls);
-    }
+    };
 
     const updateUrlList = (urlsToDisplay) => {
         urlList.innerHTML = '';
@@ -61,10 +61,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span>
                     <span class="status ${statusClass}">${status}</span>
                     <button class="delete-btn" data-domain="${domain}">Delete</button>
+                    <button class="dns-info-btn" data-domain="${domain}">DNS Info</button>
                 </span>
             `;
 
             li.querySelector('.delete-btn').addEventListener('click', () => deleteUrl(domain, li));
+            li.querySelector('.dns-info-btn').addEventListener('click', (e) => {
+                showDnsWhoisInfo(domain, e.target.closest('li'));
+            });
             urlList.appendChild(li);
         });
 
@@ -72,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const totalPages = Math.ceil(urlsToDisplay.length / itemsPerPage);
         pagination.style.display = totalPages > 1 ? 'block' : 'none';
-    }
+    };
 
     const fetchUrls = async () => {
         try {
@@ -85,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             handleError(error);
         }
-    }
+    };
 
     const addUrl = async (url) => {
         const newDomain = extractBaseDomain(url);
@@ -117,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             handleError(error);
         }
-    }
+    };
 
     const highlightNewUrl = (newUrl) => {
         const listItems = urlList.getElementsByTagName('li');
@@ -127,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => li.classList.remove('highlight'), 2000);
             }
         });
-    }
+    };
 
     const highlightExistingUrl = (domain) => {
         const listItems = urlList.getElementsByTagName('li');
@@ -137,7 +141,52 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => li.classList.remove('highlight-error'), 2000);
             }
         });
-    }
+    };
+
+    const formatDnsWhoisInfo = (dnsInfo, whoisInfo) => {
+        let formattedDnsInfo = "DNS Info:\n";
+        if (typeof dnsInfo === 'string') {
+            formattedDnsInfo += dnsInfo;
+        } else {
+            formattedDnsInfo += Object.entries(dnsInfo)
+                .map(([key, value]) => `${key}: ${Array.isArray(value) ? value.join(', ') : value}`)
+                .join('\n');
+        }
+
+        let formattedWhoisInfo = "\n\nWHOIS Info:\n";
+        if (typeof whoisInfo === 'string') {
+            formattedWhoisInfo += whoisInfo;
+        } else {
+            formattedWhoisInfo += Object.entries(whoisInfo)
+                .map(([key, value]) => `${key}: ${value}`)
+                .join('\n');
+        }
+
+        return formattedDnsInfo + formattedWhoisInfo;
+    };
+
+    const showDnsWhoisInfo = async (domain) => {
+        try {
+            const response = await fetch('/get_dns_whois_info', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ domain })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                const { dns_info, whois_info } = data;
+                const formattedInfo = formatDnsWhoisInfo(dns_info, whois_info);
+                document.getElementById('dns-whois-info').textContent = formattedInfo;
+                document.getElementById('dns-whois-modal').style.display = 'block';
+            } else {
+                alert(data.error || 'Failed to retrieve DNS and WHOIS information');
+            }
+        } catch (error) {
+            handleError(error);
+        }
+    };
 
     const deleteUrl = async (domain, li) => {
         try {
@@ -146,11 +195,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ domain })
             });
-    
+
             if (response.ok) {
                 urls = urls.filter(url => url.domain !== domain);
                 li.classList.add('deleted-highlight');
-    
+
                 setTimeout(() => {
                     li.remove();
                     const totalPages = Math.ceil(urls.length / itemsPerPage);
@@ -158,11 +207,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (currentPage > totalPages) {
                         currentPage = totalPages;
                     }
-    
+
                     if (urls.length === 0 || (currentPage - 1) * itemsPerPage >= urls.length) {
                         currentPage = Math.max(1, currentPage - 1);
                     }
-  
+
                     filterUrls(true);
                 }, 2000);
             } else {
@@ -172,8 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             handleError(error);
         }
-    }
-    
+    };
 
     const deleteAllUrls = async () => {
         try {
@@ -192,12 +240,12 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             handleError(error);
         }
-    }
+    };
 
     const handleError = (error) => {
         console.error('Error details:', error);
         alert("An error occurred. Please try again later.");
-    }
+    };
 
     urlSearchInput.addEventListener('input', filterUrls);
     statusFilterSelect.addEventListener('change', filterUrls);
@@ -227,6 +275,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentPage < totalPages) {
             currentPage++;
             filterUrls();
+        }
+    });
+
+    document.querySelector('.close').addEventListener('click', () => {
+        document.getElementById('dns-whois-modal').style.display = 'none';
+    });
+
+    window.addEventListener('click', (event) => {
+        const modal = document.getElementById('dns-whois-modal');
+        if (event.target === modal) {
+            modal.style.display = 'none';
         }
     });
 
