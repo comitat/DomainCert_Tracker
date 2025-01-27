@@ -27,6 +27,8 @@ Metrics are available at the specified METRICS_PORT (default: 8899).
 
 To monitor these metrics with Prometheus, ensure your Prometheus instance is configured to scrape from this application.  
   
+Default path http://127.0.0.1:8899/metrics
+  
 ### Configuration    
 You can configure the following environment variables:  
 - METRICS_PORT: Port to expose Prometheus metrics (default: 8899).  

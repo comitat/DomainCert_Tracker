@@ -36,16 +36,32 @@ h1 {
 }
 
 #add-url-form button {
-    padding: 10px 20px;
-    background-color: #007bff;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
     border: none;
-    border-radius: 4px;
-    color: #fff;
+    padding: 10px 20px;
+    border-radius: 6px;
     cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    outline: none;
 }
 
 #add-url-form button:hover {
-    background-color: #0056b3;
+    background: linear-gradient(135deg, #0056b3, #007bff);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+#add-url-form button:active {
+    background: linear-gradient(135deg, #004080, #003366);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transform: translateY(0);
 }
 
 #url-list {
@@ -136,17 +152,37 @@ h1 {
     font-size: 12px;
 }
 
+.valid, .expired, .expiring {
+    padding: 8px 16px;
+    border-radius: 25px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
 .valid {
-    background-color: #28a745;
+    background: linear-gradient(135deg, #00c853, #00e676);
     color: white;
 }
+
 .expired {
-    background-color: #dc3545;
+    background: linear-gradient(135deg, #d50000, #ff1744);
     color: white;
 }
+
 .expiring {
-    background-color: #ffc107;
+    background: linear-gradient(135deg, #ffab00, #ffd600);
     color: black;
+}
+
+.valid:hover, .expired:hover, .expiring:hover {
+    opacity: 0.9;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 .delete-btn {

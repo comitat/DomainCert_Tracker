@@ -4,7 +4,6 @@ from datetime import datetime
 from flask import jsonify
 import logging
 
-# Настройка логирования
 logger = logging.getLogger(__name__)
 
 def get_cert_info(hostname):
