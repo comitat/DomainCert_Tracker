@@ -4,7 +4,7 @@
 #
 #    pip-compile requirements.in
 #
-attrs==24.3.0
+attrs==25.1.0
     # via
     #   jsonschema
     #   referencing
@@ -18,6 +18,8 @@ click==8.1.8
     # via flask
 cramjam==2.9.1
     # via python-snappy
+dnspython==2.7.0
+    # via -r requirements.in
 flasgger==0.9.7.1
     # via -r requirements.in
 flask==3.1.0
@@ -46,13 +48,17 @@ prometheus-client==0.21.1
     # via -r requirements.in
 psutil==6.1.1
     # via -r requirements.in
+python-dateutil==2.9.0.post0
+    # via python-whois
 python-dotenv==1.0.1
     # via -r requirements.in
 python-snappy==0.7.3
     # via -r requirements.in
+python-whois==0.9.5
+    # via -r requirements.in
 pyyaml==6.0.2
     # via flasgger
-referencing==0.36.1
+referencing==0.36.2
     # via
     #   jsonschema
     #   jsonschema-specifications
@@ -63,8 +69,12 @@ rpds-py==0.22.3
     #   jsonschema
     #   referencing
 six==1.17.0
-    # via flasgger
+    # via
+    #   flasgger
+    #   python-dateutil
 urllib3==2.3.0
     # via requests
 werkzeug==3.1.3
     # via flask
+whoisdomain==1.20240129.1
+    # via -r requirements.in

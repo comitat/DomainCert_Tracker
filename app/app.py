@@ -4,12 +4,13 @@ import threading
 import time
 import logging
 import logging.config
+from urllib.parse import urlparse
 from config import LOGGING_CONFIG, METRICS_PORT, FLASK_PORT
 from cert_manager import add_url, delete_url, get_cert_info
 from system_monitor import monitor_system
 from metrics import start_metrics_server
+from dns_whois import get_whois_info , get_dns_info
 
-# Применяем конфигурацию логирования из config.py
 logging.config.dictConfig(LOGGING_CONFIG)
 logger = logging.getLogger(__name__)
 
@@ -101,6 +102,73 @@ def delete_all_urls():
 })
 def get_urls():
     return jsonify(urls)
+
+@app.route('/get_dns_whois_info', methods=['POST'])
+@swag_from({
+    'tags': ['DNS & WHOIS Management'],
+    'parameters': [
+        {
+            'name': 'domain',
+            'in': 'body',
+            'required': True,
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'domain': {'type': 'string'}
+                }
+            }
+        }
+    ],
+    'responses': {
+        200: {'description': 'DNS and WHOIS Information retrieved successfully', 'schema': {'type': 'object'}},
+        400: {'description': 'Invalid input'},
+        500: {'description': 'Internal server error'}
+    }
+})
+def get_dns_whois_info():
+    data = request.json
+    domain = data.get('domain')
+    if not domain:
+        logger.warning("Domain is required for DNS and WHOIS lookup")
+        return jsonify({"error": "Domain is required"}), 400
+    
+    parsed_domain = urlparse(domain).netloc or domain
+    domain_cleaned = parsed_domain.split('/')[0]
+
+    try:
+        # Получаем DNS информацию
+        dns_info = get_dns_info(domain_cleaned)
+        if "error" in dns_info:
+            dns_message = "Не удалось получить DNS информацию."
+            logger.error(f"Failed to retrieve DNS information for domain {domain_cleaned}: {dns_info['error']}")
+        else:
+            dns_message = "\n".join([f"{key}: {', '.join(value)}" for key, value in dns_info.items()])
+
+        # Получаем WHOIS информацию
+        whois_info = get_whois_info(domain_cleaned)
+        if "error" in whois_info:
+            whois_message = "Не удалось получить WHOIS информацию."
+            logger.error(f"Failed to retrieve WHOIS information for domain {domain_cleaned}: {whois_info['error']}")
+        else:
+            whois_message = (
+                f"Domain Name: {whois_info['domain_name']}\n"
+                f"Registrar: {whois_info['registrar']}\n"
+                f"Creation Date: {whois_info['creation_date']}\n"
+                f"Expiration Date: {whois_info['expiration_date']}\n"
+                f"Name Servers: {', '.join(whois_info['name_servers'])}"
+            )
+
+        # Возвращаем результат
+        return jsonify({
+            "domain": domain_cleaned,
+            "dns_info": dns_message,
+            "whois_info": whois_message
+        }), 200
+    except Exception as e:
+        logger.error(f"Error retrieving DNS and WHOIS info for domain {domain_cleaned}: {str(e)}")
+        return jsonify({"error": str(e)}), 500
+
+
 
 def start_servers():
     threading.Thread(target=start_metrics_server, args=(METRICS_PORT,), daemon=True).start()

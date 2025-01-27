@@ -5,3 +5,5 @@ python-dotenv
 python-snappy
 requests
 flasgger
+dnspython
+python-whois
