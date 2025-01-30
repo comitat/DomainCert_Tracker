@@ -66,9 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
 
             li.querySelector('.delete-btn').addEventListener('click', () => deleteUrl(domain, li));
-            li.querySelector('.dns-info-btn').addEventListener('click', (e) => {
-                showDnsWhoisInfo(domain, e.target.closest('li'));
-            });
+            li.querySelector('.dns-info-btn').addEventListener('click', () => showDnsWhoisInfo(domain));
             urlList.appendChild(li);
         });
 
@@ -172,14 +170,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ domain })
             });
-
+    
             const data = await response.json();
-
+    
             if (response.ok) {
                 const { dns_info, whois_info } = data;
                 const formattedInfo = formatDnsWhoisInfo(dns_info, whois_info);
-                document.getElementById('dns-whois-info').textContent = formattedInfo;
-                document.getElementById('dns-whois-modal').style.display = 'block';
+                const listItems = urlList.getElementsByTagName('li');
+                const targetLi = Array.from(listItems).find(li => 
+                    li.querySelector('.domain-link').textContent === domain
+                );
+    
+                if (targetLi) {
+                    const infoBlock = document.createElement('div');
+                    infoBlock.className = 'dns-info-block';
+                    infoBlock.textContent = formattedInfo;
+    
+                    targetLi.appendChild(infoBlock);
+
+                    setTimeout(() => {
+                        infoBlock.remove();
+                    }, 15000);
+                }
             } else {
                 alert(data.error || 'Failed to retrieve DNS and WHOIS information');
             }
@@ -275,17 +287,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentPage < totalPages) {
             currentPage++;
             filterUrls();
-        }
-    });
-
-    document.querySelector('.close').addEventListener('click', () => {
-        document.getElementById('dns-whois-modal').style.display = 'none';
-    });
-
-    window.addEventListener('click', (event) => {
-        const modal = document.getElementById('dns-whois-modal');
-        if (event.target === modal) {
-            modal.style.display = 'none';
         }
     });
 
