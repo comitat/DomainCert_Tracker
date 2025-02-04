@@ -161,7 +161,7 @@ def start_servers():
     start_flask_server()
 
 def start_flask_server():
-    app.run(debug=True, port=FLASK_PORT, use_reloader=False)
+    app.run(debug=True, port=FLASK_PORT, use_reloader=False, host='0.0.0.0')
 
 if __name__ == '__main__':
     logger.info(f"Starting Flask server on port {FLASK_PORT}")
