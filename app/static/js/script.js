@@ -184,13 +184,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (targetLi) {
                     const infoBlock = document.createElement('div');
                     infoBlock.className = 'dns-info-block';
-                    infoBlock.textContent = formattedInfo;
     
+                    const infoContainer = document.createElement('div');
+                    infoContainer.className = 'info-container';
+                    
+                    const infoText = document.createElement('span');
+                    infoText.textContent = formattedInfo;
+                    infoContainer.appendChild(infoText);
+    
+                    const closeButton = document.createElement('button');
+                    closeButton.className = 'close-button';
+                    closeButton.innerHTML = '&times;';
+                    closeButton.addEventListener('click', () => {
+                        infoBlock.remove();
+                    });
+                    infoContainer.appendChild(closeButton);
+    
+                    infoBlock.appendChild(infoContainer);
                     targetLi.appendChild(infoBlock);
-
+    
                     setTimeout(() => {
                         infoBlock.remove();
-                    }, 15000);
+                    }, 60000);
                 }
             } else {
                 alert(data.error || 'Failed to retrieve DNS and WHOIS information');

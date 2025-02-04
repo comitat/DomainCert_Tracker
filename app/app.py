@@ -135,39 +135,24 @@ def get_dns_whois_info():
     parsed_domain = urlparse(domain).netloc or domain
     domain_cleaned = parsed_domain.split('/')[0]
 
-    try:
-        # Получаем DNS информацию
-        dns_info = get_dns_info(domain_cleaned)
-        if "error" in dns_info:
-            dns_message = "Не удалось получить DNS информацию."
-            logger.error(f"Failed to retrieve DNS information for domain {domain_cleaned}: {dns_info['error']}")
-        else:
-            dns_message = "\n".join([f"{key}: {', '.join(value)}" for key, value in dns_info.items()])
+    dns_info = get_dns_info(domain_cleaned)
+    if "error" in dns_info:
+        logger.error(f"Failed to retrieve DNS information for domain {domain_cleaned}: {dns_info['error']}")
+        #dns_info = None 
+    else:
+        dns_message = "\n".join([f"{key}: {', '.join(value)}" for key, value in dns_info.items()])
 
-        # Получаем WHOIS информацию
-        whois_info = get_whois_info(domain_cleaned)
-        if "error" in whois_info:
-            whois_message = "Не удалось получить WHOIS информацию."
-            logger.error(f"Failed to retrieve WHOIS information for domain {domain_cleaned}: {whois_info['error']}")
-        else:
-            whois_message = (
-                f"Domain Name: {whois_info['domain_name']}\n"
-                f"Registrar: {whois_info['registrar']}\n"
-                f"Creation Date: {whois_info['creation_date']}\n"
-                f"Expiration Date: {whois_info['expiration_date']}\n"
-                f"Name Servers: {', '.join(whois_info['name_servers'])}"
-            )
-
-        # Возвращаем результат
-        return jsonify({
-            "domain": domain_cleaned,
-            "dns_info": dns_message,
-            "whois_info": whois_message
-        }), 200
-    except Exception as e:
-        logger.error(f"Error retrieving DNS and WHOIS info for domain {domain_cleaned}: {str(e)}")
-        return jsonify({"error": str(e)}), 500
-
+    whois_info = get_whois_info(domain_cleaned)
+    if "error" in whois_info:
+        logger.error(f"Failed to retrieve WHOIS information for domain {domain_cleaned}: {whois_info['error']}")
+        return jsonify({"error": f"WHOIS lookup failed: {whois_info['error']}"}), 500
+    
+    response_data = {
+        "domain": domain_cleaned,
+        "dns_info": dns_info if dns_info else "DNS lookup failed or timed out.",
+        "whois_info": whois_info
+    }
+    return jsonify(response_data), 200
 
 
 def start_servers():

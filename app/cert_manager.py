@@ -40,7 +40,6 @@ def add_url(url, urls):
             "valid_to": cert_info["valid_to"].strftime("%Y-%m-%d %H:%M:%S"),
             "last_checked": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
-
         return urls[hostname]
     except Exception as e:
         logger.error(f"Error adding URL {url}: {str(e)}")

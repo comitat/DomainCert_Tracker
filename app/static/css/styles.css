@@ -1,9 +1,9 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
     margin: 0;
     padding: 0;
-    color: #333;
+    color: #ffffff;
 }
 
 main {
@@ -11,14 +11,41 @@ main {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 255, 255, 0.5);
 }
 
 h1 {
+    font-family: 'Orbitron', sans-serif;
     text-align: center;
-    color: #333;
+    font-size: 3rem;
+    color: #00ffcc;
+    text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 40px #00ffcc;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+a {
+    color: #00ffcc;
+    text-decoration: none;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 600;
+    text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc;
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: #ffffff;
+    text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff;
+    transform: scale(1.05);
+}
+
+a:active {
+    color: #00cccc;
+    text-shadow: 0 0 5px #00cccc, 0 0 10px #00cccc;
+    transform: scale(0.95);
 }
 
 #add-url-form {
@@ -27,111 +54,110 @@ h1 {
     margin-bottom: 20px;
 }
 
-#add-url-form input {
+#add-url-form input,
+#url-search,
+#status-filter {
     padding: 10px;
-    width: 300px;
-    margin-right: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-#add-url-form button {
-    background: linear-gradient(135deg, #007bff, #0056b3);
-    color: white;
-    border: none;
-    padding: 10px 20px;
+    border: 1px solid #00ffcc;
     border-radius: 6px;
-    cursor: pointer;
+    background: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
     font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
     transition: all 0.3s ease;
-    outline: none;
+    box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3), inset 0 0 10px rgba(0, 255, 255, 0.5);
 }
 
-#add-url-form button:hover {
-    background: linear-gradient(135deg, #0056b3, #007bff);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+#add-url-form input:focus,
+#url-search:focus,
+#status-filter:focus {
+    border-color: #00ffcc;
+    box-shadow: 0 6px 15px rgba(0, 255, 255, 0.5), inset 0 0 20px rgba(0, 255, 255, 0.7);
     transform: translateY(-2px);
 }
 
-#add-url-form button:active {
-    background: linear-gradient(135deg, #004080, #003366);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transform: translateY(0);
-}
-
-#url-list {
-    list-style-type: none;
-    padding: 0;
-}
-
-#url-list li {
+#add-url-form input {
     padding: 15px;
-    border-bottom: 1px solid #eee;
-    font-size: 14px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: background-color 0.3s ease;
+    width: 400px;
+    margin-right: 10px;
 }
 
-#url-list li.highlight {
-    background-color: #80e27e !important;
-    transition: background-color 2s ease;
-}
-
-#url-list li.deleted-highlight {
-    background-color: #f4f469 !important;
-    transition: background-color 2s ease;
-}
-
-#url-list li.duplicate-url {
-    animation: shake 0.3s ease-in-out;
-    background-color: #f8d7da !important;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-    border-radius: 4px;
-}
-
-@keyframes shake {
-    0%, 100% {
-        transform: translateX(0);
-    }
-    25% {
-        transform: translateX(-5px);
-    }
-    50% {
-        transform: translateX(5px);
-    }
-    75% {
-        transform: translateX(-5px);
-    }
-}
-
-#url-list li:last-child {
-    border-bottom: none;
-}
-
-.dns-info-btn {
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
+button {
+    background: linear-gradient(135deg, var(--bg-start, #00ffcc), var(--bg-end, #00cccc));
     color: white;
     border: none;
-    padding: 8px 16px;
-    margin-left: 5px;
-    cursor: pointer;
+    padding: var(--padding, 10px 20px);
     border-radius: 6px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
+    cursor: pointer;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 5px rgba(var(--shadow-color, 0, 255, 255), 0.5);
     transition: all 0.3s ease;
-    outline: none;
+}
+
+button:hover {
+    background: linear-gradient(135deg, var(--bg-end, #00cccc), var(--bg-start, #00ffcc));
+    box-shadow: 0 4px 8px rgba(var(--shadow-color, 0, 255, 255), 0.7);
+    transform: translateY(-2px);
+}
+
+button:active {
+    background: linear-gradient(135deg, #00aaaa, #009999);
+    box-shadow: 0 2px 4px rgba(var(--shadow-color, 0, 255, 255), 0.5);
+    transform: translateY(0);
+}
+
+/* #delete-all-urls-btn {
+    --bg-start: #ff416c;
+    --bg-end: #ff4b2b;
+    --padding: 10px;
+    --shadow-color: 255, 65, 108;
+    flex-shrink: 0;
+}
+
+#delete-all-urls-btn:hover {
+    background: linear-gradient(135deg, #ff4b2b, #ff416c);
+    box-shadow: 0 6px 15px rgba(255, 65, 108, 0.7), 0 0 30px rgba(255, 65, 108, 0.5);
+    transform: translateY(-2px);
+}
+
+#delete-all-urls-btn:active {
+    background: linear-gradient(135deg, #e03a1a, #d52222);
+    box-shadow: 0 2px 5px rgba(255, 65, 108, 0.5), 0 0 10px rgba(255, 65, 108, 0.3);
+    transform: translateY(0);
+} */
+
+.delete-btn {
+    --bg-start: #ff416c;
+    --bg-end: #ff4b2b;
+    --padding: 8px 16px;
+    --shadow-color: 255, 0, 0;
+    font-size: 12px;
+}
+
+.delete-btn:hover {
+    background: linear-gradient(135deg, #ff4b2b, #ff416c);
+    box-shadow: 0 4px 8px rgba(255, 0, 0, 0.7);
+    transform: translateY(-2px);
+}
+
+.delete-btn:active {
+    background: linear-gradient(135deg, #e03a1a, #d52222);
+    box-shadow: 0 2px 4px rgba(255, 0, 0, 0.5);
+    transform: translateY(0);
+}
+
+.dns-info-btn {
+    --bg-start: #6a11cb;
+    --bg-end: #2575fc;
+    --padding: 8px 16px;
+    --shadow-color: 0, 0, 0;
+    margin-left: 5px;
+    font-family: 'Montserrat', sans-serif;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
 }
 
 .dns-info-btn:hover {
@@ -146,93 +172,138 @@ h1 {
     transform: translateY(0);
 }
 
-.dns-info-block {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-top: 5px;
-    border-radius: 4px;
+#url-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#url-list li {
+    padding: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     font-size: 14px;
-    color: #333;
-    white-space: pre-wrap;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    color: #ffffff;
 }
 
-.status {
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 12px;
+#url-list li.highlight {
+    background: rgba(0, 255, 200, 0.2);
+    transition: background-color 2s ease;
 }
 
-.valid, .expired, .expiring {
-    padding: 8px 16px;
-    border-radius: 25px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: all 0.2s ease;
+#url-list li.deleted-highlight {
+    background: rgba(255, 255, 0, 0.2);
+    transition: background-color 2s ease;
+}
+
+.valid,
+.expired,
+.expiring {
     display: inline-block;
+    padding: 5px 15px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin-right: 12px;
 }
 
 .valid {
-    background: linear-gradient(135deg, #00c853, #00e676);
-    color: white;
+    background: linear-gradient(135deg, #1becc2, #00cccc);
+    text-shadow: 0 0 5px #00ffcc;
+}
+
+.valid:hover {
+    background: linear-gradient(135deg, #00cccc, #00ffcc);
+    box-shadow: 0 6px 12px rgba(0, 255, 204, 0.7);
+    transform: translateY(-2px);
+    margin-right: 12px;
 }
 
 .expired {
-    background: linear-gradient(135deg, #d50000, #ff1744);
-    color: white;
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    text-shadow: 0 0 5px #ff416c;
+}
+
+.expired:hover {
+    background: linear-gradient(135deg, #ff4b2b, #ff416c);
+    box-shadow: 0 6px 12px rgba(255, 65, 108, 0.7);
+    transform: translateY(-2px);
+    margin-right: 12px;
 }
 
 .expiring {
-    background: linear-gradient(135deg, #ffab00, #ffd600);
+    background: linear-gradient(135deg, #ffff00, #cccc00);
     color: black;
+    text-shadow: 0 0 5px #ffff00;
 }
 
-.valid:hover, .expired:hover, .expiring:hover {
-    opacity: 0.9;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+.expiring:hover {
+    background: linear-gradient(135deg, #cccc00, #ffff00);
+    box-shadow: 0 6px 12px rgba(255, 255, 0, 0.7);
+    transform: translateY(-2px);
+    margin-right: 12px;
 }
 
-.delete-btn {
-    background: linear-gradient(135deg, #ff416c, #ff4b2b);
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+.dns-info-block {
+    position: relative;
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(0, 200, 200, 0.1));
+    border: 1px solid #00ffcc;
+    padding: 15px;
+    margin-top: 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #ffffff;
+    white-space: pre-wrap;
+    box-shadow: 0 4px 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.3);
     transition: all 0.3s ease;
-    outline: none;
 }
 
-.delete-btn:hover {
-    background: linear-gradient(135deg, #ff4b2b, #ff416c);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+.dns-info-block:hover {
+    box-shadow: 0 6px 15px rgba(0, 255, 255, 0.7), 0 0 30px rgba(0, 255, 255, 0.5);
     transform: translateY(-2px);
 }
 
-.delete-btn:active {
-    background: linear-gradient(135deg, #e03a1a, #d52222);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transform: translateY(0);
+.info-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.alert {
-    background-color: #28a745;
-    color: white;
-    padding: 10px;
-    text-align: center;
-    margin-top: 10px;
-    border-radius: 5px;
+.info-container span {
+    flex-grow: 1;
+    font-family: 'Montserrat', sans-serif;
     font-size: 14px;
+    color: #00ffcc;
+    text-shadow: 0 0 5px #00ffcc;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #00ffcc;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    transition: all 0.3s ease;
+}
+
+.close-button:hover {
+    color: #ffffff;
+    text-shadow: 0 0 10px #ffffff;
+    transform: scale(1.2);
+}
+
+.close-button:active {
+    transform: scale(0.9);
 }
 
 .alert {
@@ -243,9 +314,12 @@ h1 {
     z-index: 1000;
     padding: 10px 20px;
     border-radius: 4px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 5px rgba(0, 255, 255, 0.5);
     opacity: 1;
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    background: rgba(0, 0, 0, 0.8);
+    color: #00ffcc;
+    border: 1px solid #00ffcc;
 }
 
 .alert.fade-out {
@@ -253,14 +327,25 @@ h1 {
     transform: translateX(-50%) translateY(-20px);
 }
 
-.alert.error {
-    background-color: #dc3545;
-    color: white;
+#status-filter {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300ffcc'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    cursor: pointer;
 }
 
-.alert.success {
-    background-color: #28a745;
-    color: white;
+#status-filter option {
+    background: rgba(0, 0, 0, 0.8);
+    color: #ffffff;
+    padding: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    transition: all 0.3s ease;
 }
 
-
+#status-filter option:hover {
+    background: rgba(0, 255, 200, 0.2);
+}
